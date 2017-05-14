@@ -1,0 +1,6 @@
+build
+*.PID
+*.txt
+*.iml
+.*
+!.gitignore
