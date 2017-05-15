@@ -4,7 +4,11 @@ run: start stop
 
 start: registry.PID server.PID
 
+start-wp: registry.PID server.PID p=w
+
 reboot: stop clean build start
+
+reboot-wp: stop clean build start-wp
 
 registry.PID:
 	@echo STARTING RMI REGISTRY
@@ -51,4 +55,27 @@ test:
 	@echo
 	@make client fk=1 l=18 &
 
+test-cc:
+	@make client fk=1 ct=pepe1 l=11 &
+	@sleep 3
+	@echo
+	@make client fk=2 ct=red l=12 &
+	@sleep 2
+	@echo
+	@make client fk=1 l=18 &
+	@sleep 2
+	@echo
+	@make client fk=2 l=5 &
+	@sleep 6
+	@echo
+	@make client fk=2 ct=hot l=5 &
+	@sleep 2
+	@echo
+	@make client fk=1 ct=pepe2 l=6 &
+	@sleep 6
+	@echo
+	@make client fk=1 l=10 &
+	@sleep 6
+	@echo
+	@make client fk=2 l=10 &
 .PHONY: run start stop build clean client
