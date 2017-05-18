@@ -7,8 +7,8 @@ public class ReadersPreferencePolicy implements ReaderWriterPolicy {
 	private int readcount;
 
 	public ReadersPreferencePolicy() {
-		this.rmutex = new Semaphore(1);
-		this.resource = new Semaphore(1);
+		this.rmutex = new Semaphore(1, true);
+		this.resource = new Semaphore(1, true);
 		this.readcount = 0;
 	}
 

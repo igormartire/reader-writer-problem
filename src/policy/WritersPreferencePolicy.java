@@ -12,10 +12,10 @@ public class WritersPreferencePolicy implements ReaderWriterPolicy {
 	public WritersPreferencePolicy() {
 		readcount = 0;
 		writecount = 0;
-		rmutex = new Semaphore(1);
-		wmutex = new Semaphore(1);
+		rmutex = new Semaphore(1, true);
+		wmutex = new Semaphore(1, true);
 		readTry= new Semaphore(1, true);
-		resource = new Semaphore(1);
+		resource = new Semaphore(1, true);
 	}
 
 	@Override
