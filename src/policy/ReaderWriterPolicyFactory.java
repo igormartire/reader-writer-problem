@@ -19,4 +19,8 @@ public class ReaderWriterPolicyFactory {
 				throw new IllegalStateException("Invalid policy type set for ReaderWriterPolicyFactory.");
 		}
 	}
+
+	public ReaderWriterPolicyType getPolicyType() {
+		return this.policyType;
+	}
 }

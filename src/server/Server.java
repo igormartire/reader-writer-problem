@@ -23,10 +23,12 @@ public class Server implements IOController {
 	}
 
 	public String read(int id, int duration) throws FileNotFoundException, InterruptedException {
+		System.out.println("\nThread ("+Thread.currentThread().getId()+") --> Resource ("+id+"): Wants to read.");
 		return resources.get(id).read(duration);
 	}
 
 	public void write(int id, String content, int duration) throws FileNotFoundException, InterruptedException {
+		System.out.println("\nThread ("+Thread.currentThread().getId()+") --> Resource ("+id+"): Wants to write.");
 		if (!this.resources.containsKey(id)) {
 			this.resources.put(id, newConcurrentResource(id));
 		}
@@ -45,7 +47,7 @@ public class Server implements IOController {
 			IOController stub = (IOController) UnicastRemoteObject.exportObject(obj, 0);
 			Registry registry = LocateRegistry.getRegistry();
 			registry.bind("IOController", stub);
-			System.err.println("Server ready with policy: " + readerWriterPolicyFactory.buildPolicy().getClass().getSimpleName());
+			System.out.println("Server ready with policy: " + readerWriterPolicyFactory.getPolicyType().name());
 		} catch (Exception e) {
 			System.err.println("Server exception: " + e.toString());
 			e.printStackTrace();
@@ -53,7 +55,7 @@ public class Server implements IOController {
 	}
 
 	private static ReaderWriterPolicyFactory parseArguments(String args[]) {
-		ReaderWriterPolicyFactory readerWriterPolicyFactory = null;
+		ReaderWriterPolicyFactory readerWriterPolicyFactory;
 		if (args.length > 0) {
 			switch(args[0]) {
 				case "r":
@@ -73,7 +75,7 @@ public class Server implements IOController {
 			}
 		}
 		else {
-			readerWriterPolicyFactory = new ReaderWriterPolicyFactory(ReaderWriterPolicyType.WritersPreferencePolicy);
+			readerWriterPolicyFactory = new ReaderWriterPolicyFactory(ReaderWriterPolicyType.NoPreferencePolicy);
 		}
 		return readerWriterPolicyFactory;
 	}
