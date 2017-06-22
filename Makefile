@@ -17,11 +17,11 @@ registry.PID:
 
 server.PID: registry.PID
 	@echo STARTING PRIORITY SERVER
-	@java -classpath build -Djava.rmi.server.codebase=file:build/ -Djava.rmi.server.hostname=<server-address> -DserverPort=33333 server.Server $(p) & echo $$! > $@
+	@java -classpath build -Djava.rmi.server.codebase=file:build/ -Djava.rmi.server.hostname=34.209.22.148 -DserverPort=33333 server.Server $(p) & echo $$! > $@
 	@sleep 2
 
 client:
-	@java -classpath build -DremoteHost=<server-address> client.Client $(fk) $(ct) $(l)
+	@java -classpath build -DremoteHost=34.209.22.148 client.Client $(fk) $(ct) $(l)
 	@sleep 2
 
 stop:
@@ -81,6 +81,6 @@ test-cc:
 
 cloud-test:
 	@make client fk=0 ct=pepe l=10000 &
-	@sleep 1
+	@sleep 4
 	@make client fk=0 l=10000 &
 .PHONY: run start stop build clean client

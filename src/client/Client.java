@@ -31,19 +31,23 @@ public class Client {
         try {
             Registry registry = LocateRegistry.getRegistry(System.getProperty("remoteHost"));
             IOController stub = (IOController) registry.lookup("IOController");
-            long start, end;
+            long start, end=0;
             if (isReader) {
                 String contentRead;
-                start = System.currentTimeMillis();
-                for(int i = 0; i < 10; i++)contentRead = stub.read(fileKey, duration);
-                end = System.currentTimeMillis() - start;
-                System.out.println("Elapsed Reading Time: "+ end/1000.0 + "s");
+                for(int i = 0; i < 10; i++){
+                    start = System.currentTimeMillis();
+                    contentRead = stub.read(fileKey, duration);
+                    end += System.currentTimeMillis() - start;
+                }
+                System.out.println("Average Elapsed Reading Time: "+ end/10000.0 + "s");
                 System.out.println("Lines Read: "+duration);
             } else {
-                start = System.currentTimeMillis();                
-                for(int i = 0; i < 10; i++) stub.write(fileKey, contentToWrite, duration);
-                end = System.currentTimeMillis() - start;
-                System.out.println("Elapsed Writing Time: "+ end/1000.0 + "s");
+                for(int i = 0; i < 10; i++){
+                    start = System.currentTimeMillis();                
+                    stub.write(fileKey, contentToWrite, duration);
+                    end += System.currentTimeMillis() - start;
+                }
+                System.out.println("Average Elapsed Writing Time: "+ end/10000.0 + "s");
             }
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
