@@ -23,8 +23,7 @@ public class Resource {
 		}
 
 		this.log("Finished reading.");
-		this.log("Contents: \n" + read);
-
+		
 		return read;
 	}
 

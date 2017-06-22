@@ -80,7 +80,7 @@ test-cc:
 	@make client fk=2 l=10 &
 
 cloud-test:
-	@make client fk=0 ct=pepe l=10000000 &
-	@sleep 1
-	@make client fk=0 l=10000000 &
+	@make client fk=0 ct=pepe l=10000 &
+	@sleep 4
+	@make client fk=0 l=10000 &
 .PHONY: run start stop build clean client
