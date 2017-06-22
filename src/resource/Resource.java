@@ -15,7 +15,7 @@ public class Resource {
 	public String read(int duration) throws InterruptedException, FileNotFoundException {
 		this.log("Reading...");
 
-		Thread.sleep(duration * 1000);
+		//Thread.sleep(duration * 1000);
 
 		String read;
 		try (Scanner scanner = new Scanner(this.file)) {
@@ -31,10 +31,10 @@ public class Resource {
 	public void write(String content, int duration) throws InterruptedException, FileNotFoundException {
 		this.log("Writing...");
 
-		Thread.sleep(duration * 1000);
+		//Thread.sleep(duration * 1000);
 
 		try(PrintWriter out = new PrintWriter(new FileOutputStream(this.file, true))) {
-			out.println(content);
+			for(int i = 0; i < duration; i++) out.println(content);
 		}
 
 		this.log("Writing finished.");

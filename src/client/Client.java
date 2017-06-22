@@ -28,14 +28,20 @@ public class Client {
         else {
             throw new IllegalArgumentException("Invalid number of arguments. Use 2 or 3.");
         }
-
         try {
             Registry registry = LocateRegistry.getRegistry(System.getProperty("remoteHost"));
             IOController stub = (IOController) registry.lookup("IOController");
+            long start, end;
             if (isReader) {
-                stub.read(fileKey, duration);
+                start = System.currentTimeMillis();
+                for(int i = 0; i < 10; i++) stub.read(fileKey, duration);
+                end = System.currentTimeMillis() - start;
+                System.out.println("Elapsed Reading Time: "+ end/1000.0 + "s");
             } else {
-                stub.write(fileKey, contentToWrite, duration);
+                start = System.currentTimeMillis();                
+                for(int i = 0; i < 10; i++) stub.write(fileKey, contentToWrite, duration);
+                end = System.currentTimeMillis() - start;
+                System.out.println("Elapsed Writing Time: "+ end/1000.0 + "s");
             }
         } catch (Exception e) {
             System.err.println("Client exception: " + e.toString());
