@@ -33,10 +33,12 @@ public class Client {
             IOController stub = (IOController) registry.lookup("IOController");
             long start, end;
             if (isReader) {
+                String contentRead;
                 start = System.currentTimeMillis();
-                for(int i = 0; i < 10; i++) stub.read(fileKey, duration);
+                for(int i = 0; i < 10; i++)contentRead = stub.read(fileKey, duration);
                 end = System.currentTimeMillis() - start;
                 System.out.println("Elapsed Reading Time: "+ end/1000.0 + "s");
+                System.out.println("Lines Read: "+duration);
             } else {
                 start = System.currentTimeMillis();                
                 for(int i = 0; i < 10; i++) stub.write(fileKey, contentToWrite, duration);
