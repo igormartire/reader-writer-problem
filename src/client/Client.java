@@ -30,7 +30,7 @@ public class Client {
         }
 
         try {
-            Registry registry = LocateRegistry.getRegistry();
+            Registry registry = LocateRegistry.getRegistry(System.getProperty("remoteHost"));
             IOController stub = (IOController) registry.lookup("IOController");
             if (isReader) {
                 stub.read(fileKey, duration);
