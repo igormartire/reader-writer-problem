@@ -17,7 +17,7 @@ registry.PID:
 
 server.PID: registry.PID
 	@echo STARTING PRIORITY SERVER
-	@java -classpath build -Djava.rmi.server.codebase=file:build/ server.Server $(p) & echo $$! > $@
+	@java -classpath build -Djava.rmi.server.codebase=file:build/ -Djava.rmi.server.hostname=104.155.180.216 server.Server $(p) & echo $$! > $@
 	@sleep 2
 
 client: server.PID
