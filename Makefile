@@ -17,11 +17,11 @@ registry.PID:
 
 server.PID: registry.PID
 	@echo STARTING PRIORITY SERVER
-	@java -classpath build -Djava.rmi.server.codebase=file:build/ -Djava.rmi.server.hostname=104.155.180.216 -DserverPort=33333 server.Server $(p) & echo $$! > $@
+	@java -classpath build -Djava.rmi.server.codebase=file:build/ -Djava.rmi.server.hostname=<server-address> -DserverPort=33333 server.Server $(p) & echo $$! > $@
 	@sleep 2
 
 client:
-	@java -classpath build -DremoteHost=104.155.180.216 client.Client $(fk) $(ct) $(l)
+	@java -classpath build -DremoteHost=<server-address> client.Client $(fk) $(ct) $(l)
 	@sleep 2
 
 stop:
